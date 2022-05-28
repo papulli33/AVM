@@ -127,7 +127,7 @@ We manage our points by connecting our database to QGIS and changing its value r
 
 Syncthing allows us to a continuously synchronize our files between our phone and computer.Since we need to collect data in real time in this project we need to use Syncthing with QField which allows us to make changes to our QGIS project from anywhere if we have an internet connection and a good GPS signal.
 
-![image](https://user-images.githubusercontent.com/92017528/170720849-96c3e8f3-138a-4aea-9c3b-a02e59983bd1.png)
+![image](https://user-images.githubusercontent.com/92017528/170778631-c3fe0815-fd6b-45d5-a16b-a5a578e194a7.png)
 
 We get the the location of the Mall from our GPS and add number of shops inside of the mall,and its photo to our database from QField.
 
