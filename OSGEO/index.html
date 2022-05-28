@@ -1,0 +1,130 @@
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Malls</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div id="mapdiv"></div>
+    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v5.3.0/build/ol.js"></script>
+    <script src="https://unpkg.com/elm-pep@1.0.6/dist/elm-pep.js"></script>
+    <!-- The lines below are only needed for old environments like Internet Explorer and Android 4.x -->
+    <script
+        src="https://cdn.polyfill.io/v3/polyfill.min.js?features=fetch,requestAnimationFrame,Element.prototype.classList,TextDecoder"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/3.18.3/minified.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <nav class="navbar fixed-top navbar-light bg-light">
+        <a class="navbar-brand" href="https://www.hacettepe.edu.tr/">
+            <img src="https://i.imgur.com/W84cgXU.png" width="25" height="30" class="d-inline-block align-top" alt="">
+            Hacettepe
+        </a>
+        <a href="https://github.com/GMT-352/osgeo-team-15">
+            <button type="button" class="btn btn-dark" href="https://github.com/GMT-352/osgeo-team-15">Contact
+                us</button>
+        </a>
+    </nav>
+
+    <script>
+
+        $.getJSON('/api/data', function (data) {
+            console.log(data[0].longitude);
+            console.log(data[0].latitude);
+            var veri1 = data[0].longitude;
+            var veri2 = data[0].latitude;
+
+            map = new OpenLayers.Map("mapdiv");
+            map.addLayer(new OpenLayers.Layer.OSM());
+
+            var point;
+            var length = data.length;
+            //TODO - data haritaya ekleme işlemi
+            for (point = 0; point < data.length; point++) {
+                var lon = data[point].longitude;
+                var lat = data[point].latitude;
+
+                var lonLat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                    map.getProjectionObject() // to Spherical Mercator Projection
+                )
+                var zoom = 15;
+
+                var markers = new OpenLayers.Layer.Markers("Markers");
+                map.addLayer(markers)
+
+                markers.addMarker(new OpenLayers.Marker(lonLat))
+
+                map.setCenter(lonLat, zoom)
+
+            }
+        });
+    </script>
+</body>
+<style>
+    .footer {
+        background-color: #f8f9fa;
+    }
+</style>
+<footer class="footer-distributed footer">
+
+    <style>
+        .placehold {
+            min-height: 20px;
+        }
+    </style>
+    <div class="row placehold"></div>
+    <div class="container">
+        <div class=" row">
+            <div class="col align-self-start">
+                <div class="shadow-lg p-3 mb-5 bg-body rounded"> Have a good day! This project shows the shopping centers in
+                    Ankara. You can find the source codes of the project in the 'Contact Us' section.</div>
+                <h4>Prepared by</h4>
+                <div class="shadow-lg p-3 mb-5 bg-body rounded row row-cols-md-2 " style=" max-width:22rem;">
+            
+                    <div class="col">
+                        <div class="card  ">
+                            <img src="https://icon-library.com/images/4_avatar-512.png" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-text">Sude</h5>
+            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="https://icons-for-free.com/download-icon-business+face+people+icon-1320086457520622872_512.png"
+                                class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-text">Mertcan</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col align-self-end" >
+                
+                <iframe class=" p-3 card  mb-5 bg-body rounded"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3062.376021157473!2d32.731501234999236!3d39.86581443561722!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d3474234dd5eb3%3A0x5a6c30cb932231a0!2sGeomatik%20M%C3%BChendisli%C4%9Fi!5e0!3m2!1sen!2str!4v1653548268491!5m2!1sen!2str"
+                    width="500" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+    
+</footer>
+</html>
